@@ -44,7 +44,9 @@ Changes to the active marker happen in `css > style.css`:
 ```
 The `background-position` property contains the coordinates in the picture of the marker you'd like to use. Once you've selected your marker, consult the [CSS reference](https://github.com/coryasilva/Leaflet.ExtraMarkers/blob/c4f5f1e4184194b584ef112a609af7a1f91db172/src/assets/img/markers_default.png) to find the appropriate coordinates.
 
-# Leaflet Storymaps with Google Sheets: Original Documentation
+# [Leaflet Storymaps with Google Sheets: Original Documentation](https://www.github.com/handsondataviz/leaflet-storymaps-with-google-sheets)
+*Jack Dougherty and Ilya Ilyankou*
+
 Customize your Leaflet story map with linked Google Sheets template and scrolling narrative.
 Supports images, audio and video embeddings, and Leaflet TileLayer/geojson overlays.
 
