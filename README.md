@@ -1,4 +1,50 @@
-# Leaflet Storymaps with Google Sheets
+# Leaflet Storymaps with Google Sheets: Extended Documentation
+*Margaret K. Smith, Southern Illinois University Edwardsville*
+
+This repo is a fork of Jack Dougherty and Ilya Ilyankou's Leaflet Storymaps with Google Sheets, from their book *Hands-On Data Visualization*. Their full documentation is below. This fork contains extended documentation and customizations developed for the IRIS Center for Digital Humanities at Southern Illinois University Edwardsville.
+
+## Customizing Markers
+The data entry spreadsheet offers some options for customizing markers: color, display, and content (e.g. numbers or letters). However, the underlying code allows for significantly more customization. Note that the current version of the storymap uses an old version of the Leaflet ExtraMarkers extension, and updating the markers requires utilizing the [previous version of their documentation](https://github.com/coryasilva/Leaflet.ExtraMarkers/tree/c4f5f1e4184194b584ef112a609af7a1f91db172).
+
+### Changing the Default/Inactive Marker
+The default marker is constructed in `scripts > storymap.js`:
+```
+markers.push(
+          L.marker([lat, lon], {
+            icon: L.ExtraMarkers.icon({
+              icon: 'fa-number',
+              number: c['Marker'] === 'Numbered'
+                ? chapterCount
+                : (c['Marker'] === 'Plain'
+                  ? ''
+                  : c['Marker']), 
+              markerColor: c['Marker Color'] || 'blue'
+            }),
+            opacity: c['Marker'] === 'Hidden' ? 0 : 0.9,
+            interactive: c['Marker'] === 'Hidden' ? false : true,
+          }
+        ));
+```
+You can edit or add `icon` properties. Be sure to only adjust the static properties! Anything with a value of `c['Marker']` is set by data in the spreadsheet, and changing it here will override the spreadsheet. If you add properties, make sure you separate them with a comma and enclose the value in quotation marks: `iconColor: 'white',`
+* iconColor: This will set the color of the text inside the marker. You can use named or hex colors.
+* shape: This changes the shape of the whole marker. You can choose from circle, square, star, or penta.
+
+Commit your changes before heading to the next step, which occurs in a different file.
+
+### Changing the Active Marker
+Changes to the default marker **do not** update the active marker, which by default is an orange circle. The process for changing this is a little different: The default marker is a segment of an [image](https://github.com/coryasilva/Leaflet.ExtraMarkers/blob/c4f5f1e4184194b584ef112a609af7a1f91db172/src/assets/img/markers_default.png), which contains 60 combinations of shape and color.
+
+![Active Marker Options](https://github.com/coryasilva/Leaflet.ExtraMarkers/blob/c4f5f1e4184194b584ef112a609af7a1f91db172/src/assets/img/markers_default.png)
+
+Changes to the active marker happen in `css > style.css`:
+```
+.marker-active {
+  background-position: -72px 0 !important;
+}
+```
+The `background-position` property contains the coordinates in the picture of the marker you'd like to use. Once you've selected your marker, consult the [CSS reference](https://github.com/coryasilva/Leaflet.ExtraMarkers/blob/c4f5f1e4184194b584ef112a609af7a1f91db172/src/assets/img/markers_default.png) to find the appropriate coordinates.
+
+# Leaflet Storymaps with Google Sheets: Original Documentation
 Customize your Leaflet story map with linked Google Sheets template and scrolling narrative.
 Supports images, audio and video embeddings, and Leaflet TileLayer/geojson overlays.
 
